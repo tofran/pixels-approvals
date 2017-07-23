@@ -1,0 +1,5 @@
+#python bytecode files
+*.py[co]
+
+#secret keys
+secerts.py
