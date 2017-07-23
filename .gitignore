@@ -2,4 +2,4 @@
 *.py[co]
 
 #secret keys
-secerts.py
+secrets.py
