@@ -3,3 +3,6 @@
 
 #secret keys
 secrets.py
+
+#JSON data files
+*.json
