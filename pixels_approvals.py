@@ -3,10 +3,6 @@ from pixelscamp_api import PixelsAPI
 from secrets import *
 import json
 
-def main():
-    #toFile(getApproved(), 'badge_92.json')
-    to_file(gen_timeline(from_file('badge_92.json')), 'badge_92.json', True)
-
 def get_approved():
     api = PixelsAPI(api_key = api_key)
     return api.badges_owners(92)['owners']['2017']
@@ -14,7 +10,7 @@ def get_approved():
 def gen_timeline(data):
     timeline = dict()
     for each in data:
-        day = each['created'][:10]
+        day = each['created'][:10].replace('-', '')
         if day not in timeline:
             timeline[day] = list()
         timeline[day].append(each['user'])
@@ -28,6 +24,3 @@ def from_file(filename):
     with open(filename, 'r') as f:
         data = json.load(f)
     return data
-
-if __name__ == '__main__':
-    main()
