@@ -1,8 +1,1 @@
-#python bytecode files
-*.py[co]
-
-#secret keys
-secrets.py
-
-#JSON data files
 *.json
