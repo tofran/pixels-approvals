@@ -37,37 +37,45 @@
 
 		#approvedList li span{
 			color: #515151;
+			font-size: 0.8em;
+			margin-left: 4px;
 		}
 	</style>
 
 	<script>
 		(function(){
-			var timeline = {}, badgesData = null;
+			var timeline = {}, badgesData = null, showImages = false;
 
 			$(function() {
 				$.ajax({
-					url: 'https://api.pixels.camp/badges/owners/92',
+					url: 'https:/api.pixels.camp/badges/owners/92',
 					dataType: 'json',
 					success: function( data ) {
 						badgesData = data.owners['2017'];
 						timeline = toTimeline(badgesData);
 						drawGraph(timeline);
-
-						console.log(badgesData);
-						approvedList = $('#approvedList');
-						badgesData.forEach(function(each){
-							console.log(each)
-							approvedList.append(
-								"<li><a href='https://pixels.camp/" + each.user + "'><img src='" + each.avatar_url + "'/>" + each.user + "</a><span>" + each.created + "</span></li>"
-							);
-						});
-						//$('#approvedList');
+						outputList(badgesData);
 					},
 					error: function( data ) {
-				 		alrt("Error retrieving data from tehe API. Make sure you are logged in!");
+				 		alrt("Error retrieving data from tehe API.");
 					}
 				 });
+				 $("#showImagesCheck").click(function(){
+					 showImages = !showImages;
+					 outputList(badgesData);
+				 });
 			});
+
+			function outputList(data = badgesData, date = null, query = null){
+				console.log(data.length);
+				approvedList = $('#approvedList');
+				approvedList.empty();
+				data.forEach(function(each){
+					approvedList.append(
+						"<li><a href='https://pixels.camp/" + each.user + "'>" + (showImages ? "<img src='" + each.avatar_url + "'/>" : "") + each.user + "</a><span>" + each.created + "</span></li>"
+					);
+				});
+			}
 
 			function toTimeline(badges) {
 				var tml = {};
@@ -153,7 +161,6 @@
 					}
 				};
 
-
 				var ctx = $("#canvas")[0].getContext("2d");
 				window.chart = new Chart(ctx, config);
 			}
@@ -170,7 +177,8 @@
 		</div>
 
 		<h2>Approved users</h2>
-		Search: <input type="text" placeholder="username" />
+		<label>Show avatars: <input type="checkbox" id="showImagesCheck"/></label>
+		<label>Search: <input type="text" placeholder="username" id="searchBox"/></label>
 		<ul id="approvedList">
 		</ul>
 
