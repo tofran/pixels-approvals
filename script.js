@@ -1,9 +1,9 @@
 (function () {
   var timeline = {}, badgesData = null, showImages = false, searchQuery = null;
-  
+
   $(function () {
     $.ajax({
-      url: 'https:/api.pixels.camp/badges/owners/92',
+      url: 'https://api.pixels.camp/badges/owners/92',
       dataType: 'json',
       success: function (data) {
         badgesData = data.owners['2017'];
@@ -12,7 +12,7 @@
         outputList(badgesData);
       },
       error: function (data) {
-        alrt("Error retrieving data from tehe API.");
+        alert("Error retrieving data from tehe API.");
       }
     });
     $("#showImagesCheck").click(function () {
