@@ -1,0 +1,36 @@
+body{
+  font-family: sans-serif;
+}
+canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+#chart{
+  width: 80%;
+}
+
+#approvedList{
+  list-style-type: none;
+}
+
+#approvedList li{
+  padding-bottom: 4px;
+}
+
+#approvedList li a{
+  text-decoration: none;
+}
+
+#approvedList li img{
+  width: 50px;
+  vertical-align: top;
+  margin-right: 4px;
+}
+
+#approvedList li span{
+  color: rgb(54, 162, 235);
+  font-size: 0.8em;
+  margin-left: 4px;
+}
