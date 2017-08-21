@@ -9,10 +9,11 @@
         badgesData = data.owners['2017'];
         timeline = toTimeline(badgesData);
         drawGraph(timeline);
+        $('#chart > span').hide();
         outputList(badgesData);
       },
       error: function (data) {
-        alert("Error retrieving data from tehe API.");
+        alert("Error retrieving data from the API.");
       }
     });
     $("#showImagesCheck").click(function () {
@@ -32,13 +33,13 @@
   function outputList(data = badgesData, query = null, date = null) {
     approvedList = $('#approvedList');
     approvedList.empty();
-    data.forEach(function (each) {
+    for (var each of data) {
       if (query == null || each.user.toLowerCase().includes(query) || each.username.toLowerCase().includes(query)) {
         approvedList.append(
-          "<li><a href='https://pixels.camp/" + each.user + "'>" + (showImages ? "<img src='" + each.avatar_url + "'/>" : "") + each.user + "</a><span>" + each.created + "</span></li>"
+          "<li><a href='https://pixels.camp/" + each.user + "'>" + (showImages ? "<img src='" + each.avatar_url + "'/>" : "") + each.user + "</a> - " + each.username + "<span>" + new Date(each.created).toISOString().substring(0, 10) + "</span></li>"
         );
       }
-    });
+    }
   }
 
   function toTimeline(badges) {
