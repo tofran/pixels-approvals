@@ -1,5 +1,10 @@
 (function () {
-  var timeline = {}, badgesData = null, showImages = false, searchQuery = null;
+  var
+    timeline = {},
+    badgesData = null,
+    showImages = false,
+    searchQuery = null,
+    cumulative = true;
 
   $(function () {
     $.ajax({
@@ -13,10 +18,11 @@
         outputList(badgesData);
       },
       error: function (data) {
-        alert("Error retrieving data from the API.");
+        alert('Error retrieving data from the API.');
       }
     });
-    $("#showImagesCheck").click(function () {
+
+    $('#showImagesCheck').click(function () {
       showImages = !showImages;
       outputList(badgesData, searchQuery);
     });
@@ -27,6 +33,11 @@
         searchQuery = newQuery;
         outputList(badgesData, searchQuery);
       }
+    });
+
+    $('#cumulative').change(function (e) {
+      cumulative = !cumulative;
+      drawGraph(timeline);
     });
   });
 
@@ -54,7 +65,7 @@
     return tml;
   }
 
-  function drawGraph(timelineData, cumulative = true, scaleMax = undefined) {
+  function drawGraph(timelineData, scaleMax = undefined) {
     var values = [], cum = 0;
 
     for (var element of Object.values(timelineData)) {
@@ -72,7 +83,7 @@
       data: {
         labels: Object.keys(timelineData),
         datasets: [{
-          label: "Approvals",
+          label: 'Approvals',
           backgroundColor: color(color_blue).alpha(0.5).rgbString(),
           borderColor: color_blue,
           fill: true,
@@ -82,14 +93,14 @@
       },
       options: {
         title: {
-          text: "Pixel Approvals"
+          text: 'Pixel Approvals'
         },
         legend: {
           display: false
         },
         scales: {
           xAxes: [{
-            type: "time",
+            type: 'time',
             time: {
               format: 'YYYYMMDD',
               tooltipFormat: 'MMM DD',
@@ -126,7 +137,7 @@
       }
     };
 
-    var ctx = $("#canvas")[0].getContext("2d");
+    var ctx = $('#canvas')[0].getContext('2d');
     window.chart = new Chart(ctx, config);
   }
 })();
