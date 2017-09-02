@@ -12,6 +12,7 @@
       dataType: 'json',
       success: function (data) {
         badgesData = data.owners['2017'];
+        badgesData.sort(compareDates);
         timeline = toTimeline(badgesData);
         drawGraph(timeline);
         $('#chart > span').hide();
@@ -40,6 +41,10 @@
       drawGraph(timeline);
     });
   });
+
+  function compareDates(user1, user2){
+  	return ((user1.created < user2.created) ? -1 : (user1.created > user2.created ? 1 : 0));
+  }
 
   function outputList(data = badgesData, query = null, date = null) {
     approvedList = $('#approvedList');
